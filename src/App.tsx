@@ -1,8 +1,7 @@
 import './App.css';
 import QuestionCard from './components/QuestionCard';
+import { fetchQuizQuestions, Difficulty } from './API';
 import { useState } from 'react';
-
-// https://opentdb.com/api.php?amount=10&category=9&type=multiple
 
 const TOTAL_QUESTIONS = 10;
 
@@ -29,16 +28,25 @@ const App = () => {
         </button>
         <p className="score">Score:</p>
         <p className="loading">Loading Questions ...</p>
-        <QuestionCard
+        {/* <QuestionCard
           questionNo={number + 1}
           totalQuestions={TOTAL_QUESTIONS}
           question={questions[number].question}
           answers={questions[number].answers}
           userAnswer={userAnswer ? userAnswer[number] : undefined}
           callback={checkAnswer}
-        />
+        /> */}
         <button className="next-btn" onClick={nextQuestion}>
           Next Question
+        </button>
+        <button
+          onClick={() =>
+            fetchQuizQuestions(TOTAL_QUESTIONS, Difficulty.EASY).then((res) => {
+              console.log(res);
+            })
+          }
+        >
+          click
         </button>
       </main>
     </div>
