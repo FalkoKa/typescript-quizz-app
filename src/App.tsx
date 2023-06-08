@@ -3,7 +3,7 @@ import QuestionCard from './components/QuestionCard';
 import { fetchQuizQuestions, Difficulty, QuestionState } from './API';
 import { useState } from 'react';
 
-type AnswerObject = {
+export type AnswerObject = {
   question: string;
   answer: string;
   correct: boolean;
@@ -78,8 +78,12 @@ const App = () => {
             Start Quiz
           </button>
         ) : null}
-        {!gameOver && <p className="score">Score: {score}</p>}
-        {loading && <p className="loading">Loading Questions ...</p>}
+        {!gameOver && !loading && <p className="score">Score: {score}</p>}
+        {loading && (
+          <div className="loading">
+            <span>Loading Questions ...</span>
+          </div>
+        )}
         {error && 'Ups... something went wrong!'}
         {!loading && !gameOver && (
           <QuestionCard
