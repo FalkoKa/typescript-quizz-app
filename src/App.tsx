@@ -43,8 +43,29 @@ const App = () => {
     }
   };
 
-  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {};
-  const nextQuestion = () => {};
+  const checkAnswer = (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!gameOver) {
+      const answer = e.currentTarget.value;
+      const correct = questions[number].correct_answer === answer;
+      if (correct) setScore((prev) => prev + 1);
+      const answerObject = {
+        question: questions[number].question,
+        answer,
+        correct,
+        correctAnswer: questions[number].correct_answer,
+      };
+      setUserAnswer((prev) => [...prev, answerObject]);
+    }
+  };
+
+  const nextQuestion = () => {
+    const nextQuestion = number + 1;
+    if (nextQuestion === TOTAL_QUESTIONS) {
+      setGameOver(true);
+    } else {
+      setNumber(nextQuestion);
+    }
+  };
 
   return (
     <div className="App">
@@ -57,7 +78,7 @@ const App = () => {
             Start Quiz
           </button>
         ) : null}
-        {!gameOver && <p className="score">Score:</p>}
+        {!gameOver && <p className="score">Score: {score}</p>}
         {loading && <p className="loading">Loading Questions ...</p>}
         {error && 'Ups... something went wrong!'}
         {!loading && !gameOver && (
