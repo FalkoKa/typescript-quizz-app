@@ -81,7 +81,12 @@ const App = () => {
         {!gameOver && !loading && <p className="score">Score: {score}</p>}
         {loading && (
           <div className="loading">
-            <span>Loading Questions ...</span>
+            <p className="loading">
+              Loading Questions
+              <span className="dot">.</span>
+              <span className="dot">.</span>
+              <span className="dot">.</span>
+            </p>
           </div>
         )}
         {error && 'Ups... something went wrong!'}
